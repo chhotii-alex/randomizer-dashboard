@@ -1,4 +1,7 @@
-* why the ERR_INSUFFICIENT_RESOURCES?
-* get list of active protocols
-* git repo
+* show unassigned subjects
+* show overall means (all subjects submitted so far)
+* don't show so many decimal digits
+* say what algorithm
+* fix example task to use current API
+* git repo onto github
 * get specs for a protocol
