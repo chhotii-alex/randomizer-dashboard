@@ -1,7 +1,9 @@
-* show unassigned subjects
-* show overall means (all subjects submitted so far)
-* don't show so many decimal digits
-* say what algorithm
+* create and start new protocol
+* button next to each unassigned subject to assign to group
+* assign-all button
 * fix example task to use current API
+* add new subject
+* deal with errors-- useContext?
 * git repo onto github
 * get specs for a protocol
+* show overall means?? (all subjects submitted so far)

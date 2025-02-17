@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useURL } from './URLContext';
 import ViewProtocol from './ViewProtocol';
+import RefreshContext from './RefreshContext.js';
 
 export default function RandomizerConfig() {
     const [version, setVersion] = useState('');
@@ -25,7 +26,8 @@ export default function RandomizerConfig() {
 	}
     }
 
-    async function getProtocols() {
+    async function fetchProtocols() {
+	console.log("Doing fetchProtocols()");
 	let url = `${randomizerURL}/protocols`;
 	try {
 	    const response = await fetch(url);
@@ -35,6 +37,7 @@ export default function RandomizerConfig() {
 	    else {
 		const results = await response.json();
 		setProtocols(results);
+		setErrorMessage('');
 	    }
 	}
 	catch {
@@ -44,7 +47,9 @@ export default function RandomizerConfig() {
 
     useEffect(() => {
 	getRandomizerVersion();
-	getProtocols();
+	fetchProtocols();
+	const intervalToken = setInterval(fetchProtocols, 60*1000);
+	return () => { clearInterval(intervalToken) };
     }, [randomizerURL]);
 
     return (
@@ -56,10 +61,13 @@ export default function RandomizerConfig() {
 	    <p>
 		Algorithm version: {version}
 	    </p>
+	    <button onClick={fetchProtocols}>Refresh</button>
 	    <hr/>
-	    { Object.getOwnPropertyNames(protocols).map(
+	    <RefreshContext.Provider value={fetchProtocols} >
+         	    { Object.getOwnPropertyNames(protocols).map(
 		(p) => <ViewProtocol key={p} name={p}
 				     protocol={protocols[p]}/>) }
+	    </RefreshContext.Provider>
 	</>
     )
 }

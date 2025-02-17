@@ -1,13 +1,17 @@
 import { useURL } from './URLContext';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import ViewGroup from './ViewGroup';
 import ViewVariables from './ViewVariables';
+import FeaturesTable from './FeaturesTable';
+import RefreshContext from './RefreshContext.js';
 
 export default function ViewProtocol({name, protocol}) {
     const randomizerURL = useURL();
     const [groupList, setGroupList] = useState([]);
     const [subjectList, setSubjectList] = useState([]);
     const [varNameList, setVarNameList] = useState([]);
+    const [stopPanelShowing, setStopPanelShowing] = useState(false);
+    const refreshFunction = useContext(RefreshContext);
 
     useEffect(() => {
 	getGroups();
@@ -50,9 +54,35 @@ export default function ViewProtocol({name, protocol}) {
 	}
     }
 
+    function stopButtonClicked() {
+	setStopPanelShowing(true);
+    }
+
+    async function reallyStop() {
+	let url = `${randomizerURL}/${name}/stop`;
+	try {
+	    const response = await fetch(url, { method: "DELETE" } );
+	    if (!response.ok) {
+		console.log("Got response code:", response.status);
+		//TODO
+	    }
+	    else {
+		refreshFunction();
+	    }
+	}
+	catch {
+	    //TODO
+	}
+    }
+
+    function cancelStop() {
+	setStopPanelShowing(false);
+    }
+
     return (
 	<>
-	    <h2> Protocol: {name}</h2>
+	    <h2> Protocol: {name}</h2> 
+	    Using algorithm: <strong> {protocol.algorithm} </strong>
 	    <ViewVariables variables={protocol.variables} />
 	    <h3>Groups:</h3>
 	    { groupList.map( (g) =>
@@ -60,13 +90,21 @@ export default function ViewProtocol({name, protocol}) {
 			   key={g.name} />
 	    )}
 	    <h3>Unassigned subjects:</h3>
-	    <p>
-		{ subjectList.filter(s => s.groupName == null).map(
-		    s => <b>{s.id}</b> )
-	    }
-	    </p>
+	    <FeaturesTable subjects={ subjectList.filter(s => s.groupName == null)}
+			   variables={protocol.variables}/>
+	    <p> </p>
+	    { stopPanelShowing ?
+	      <div style={{backgroundColor: "red", padding: "2em"}}>
+		  <h1> Really stop this protocol? Are you SURE??</h1>
+		  <button onClick={reallyStop}>
+		      Yes, please stop it now!
+		  </button>
+		  <button onClick={cancelStop}>
+		      No
+		  </button>
+	      </div> :
+   	      <button onClick={stopButtonClicked}>Stop Protocol</button> }
 	    <hr/>
-	    {JSON.stringify(subjectList)}
 	</>
     )
 }

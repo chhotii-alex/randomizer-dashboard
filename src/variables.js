@@ -17,7 +17,7 @@ export function allKeysForVariables(variables) {
 
 export function valueForFeature(features, key) {
     if (features.hasOwnProperty(key)) {
-	return features[key];
+	return features[key].toPrecision(2);
     }
     //must be a categorical, look for the level that's 1
     for (const feature in features) {
