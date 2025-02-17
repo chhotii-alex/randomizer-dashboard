@@ -26,10 +26,8 @@ export default function ConnectBox() {
     }
 
     async function connect() {
-	console.log("Doing connect()");
 	const isPR = await getRandomizerOK(tempURL);
 	if (isPR) {
-	    console.log("Will do dispatch");
 	    setErrorMessage('');
 	    dispatch({type:'update', text:tempURL});
 	}

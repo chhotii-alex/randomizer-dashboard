@@ -1,58 +1,16 @@
 import { useURL } from './URLContext';
 import { useState, useEffect, useContext } from 'react';
-import ViewGroup from './ViewGroup';
 import ViewVariables from './ViewVariables';
 import FeaturesTable from './FeaturesTable';
+import ViewAllGroups from './ViewAllGroups';
+import ViewUnassignedSubjects from './ViewUnassignedSubjects';
 import RefreshContext from './RefreshContext.js';
+import useFetch from './fetching.js';
 
-export default function ViewProtocol({name, protocol}) {
+export default function ViewProtocol({name, protocol, ticker}) {
     const randomizerURL = useURL();
-    const [groupList, setGroupList] = useState([]);
-    const [subjectList, setSubjectList] = useState([]);
-    const [varNameList, setVarNameList] = useState([]);
     const [stopPanelShowing, setStopPanelShowing] = useState(false);
     const refreshFunction = useContext(RefreshContext);
-
-    useEffect(() => {
-	getGroups();
-	getSubjects();
-    }, [randomizerURL, name]);
-
-    async function getGroups() {
-	let url = `${randomizerURL}/${name}/groups`;
-	try {
-	    const response = await fetch(url);
-	    if (!response.ok) {
-		// TODO: deal with errors
-	    }
-	    else {
-		const newGroupList = await response.json();
-		console.log(newGroupList);
-		setGroupList(newGroupList);
-	    }
-	}
-	catch {
-	    // TODO: deal with errors
-	}
-    }
-
-    async function getSubjects() {
-	let url = `${randomizerURL}/${name}/subjects`;
-	try {
-	    const response = await fetch(url);
-	    if (!response.ok) {
-		// TODO: deal with errors
-	    }
-	    else {
-		const newSubjectList = await response.json();
-		console.log("Subjects", newSubjectList);
-		setSubjectList(newSubjectList);
-	    }
-	}
-	catch {
-	    // TODO: deal with errors
-	}
-    }
 
     function stopButtonClicked() {
 	setStopPanelShowing(true);
@@ -84,14 +42,8 @@ export default function ViewProtocol({name, protocol}) {
 	    <h2> Protocol: {name}</h2> 
 	    Using algorithm: <strong> {protocol.algorithm} </strong>
 	    <ViewVariables variables={protocol.variables} />
-	    <h3>Groups:</h3>
-	    { groupList.map( (g) =>
-		<ViewGroup group={g} variables={protocol.variables}
-			   key={g.name} />
-	    )}
-	    <h3>Unassigned subjects:</h3>
-	    <FeaturesTable subjects={ subjectList.filter(s => s.groupName == null)}
-			   variables={protocol.variables}/>
+	    <ViewAllGroups name={name} variables={protocol.variables} ticker={ticker} />
+	    <ViewUnassignedSubjects name={name} variables={protocol.variables} ticker={ticker}/>
 	    <p> </p>
 	    { stopPanelShowing ?
 	      <div style={{backgroundColor: "red", padding: "2em"}}>
