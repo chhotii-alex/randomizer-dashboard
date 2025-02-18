@@ -1,9 +1,3 @@
-* validate new protocol name no spaces
-* validate non-empty list of levels (at least 2)
-* validate non-empty level names
-* validate non-empty group names
-*validate non-empty variable names
-* create and start new protocol
 * write reducer function for new-protocol edits
 * button next to each unassigned subject to assign to group
 * assign-all button
@@ -12,4 +6,5 @@
 * deal with errors-- error boundary? useContext?
 * git repo onto github
 * get specs for a protocol
+* format code with prettier
 * show overall means?? (all subjects submitted so far)
