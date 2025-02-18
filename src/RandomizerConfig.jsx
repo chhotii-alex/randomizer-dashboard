@@ -4,10 +4,12 @@ import ViewProtocol from './ViewProtocol';
 import ViewVersion from './ViewVersion';
 import RefreshContext from './RefreshContext.js';
 import useFetch from './fetching.js';
+import NewProtocolPanel from './NewProtocolPanel.jsx';
 
 export default function RandomizerConfig() {
     const randomizerURL = useURL();
     const [ticker, setTicker] = useState(0);
+    const [adding, setAdding] = useState(false);
 
     const { data, loading, error } = useFetch(`${randomizerURL}/protocols`, ticker);
 
@@ -16,9 +18,17 @@ export default function RandomizerConfig() {
     }
 
     useEffect(() => {
-	const intervalToken = setInterval(refetch, 5*1000);
+	const intervalToken = setInterval(refetch, 5*60*1000);
 	return () => { clearInterval(intervalToken) };
-    }, [randomizerURL]); 
+    }, [randomizerURL]);
+
+    function editNew() {
+	setAdding(true);
+    }
+
+    function cancelAdding() {
+	setAdding(false);
+    }
 
     return (
 	<>
@@ -35,9 +45,14 @@ export default function RandomizerConfig() {
 					   protocol={data[p]}
 					   ticker={ticker}
 			     />) }
+		<button onClick={refetch}>Refresh</button>
+		<hr/>
+		{ adding ?
+		  <NewProtocolPanel cancelAdding={cancelAdding} />
+		  :
+ 		  <button onClick={editNew}>Add New Protocol...</button>
+		}
 	    </RefreshContext.Provider>
-	    <button onClick={refetch}>Refresh</button>
-	    <hr/>
 	</>
     )
 }
