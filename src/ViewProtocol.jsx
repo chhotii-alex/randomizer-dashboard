@@ -7,14 +7,24 @@ import ViewUnassignedSubjects from './ViewUnassignedSubjects';
 import RefreshContext from './RefreshContext.js';
 import ProtocolContext from './ProtocolContext.js';
 import useFetch from './fetching.js';
+import AddSubjectPanel from './AddSubjectPanel';
 
 export default function ViewProtocol({name, protocol, ticker}) {
     const randomizerURL = useURL();
     const [stopPanelShowing, setStopPanelShowing] = useState(false);
+    const [addSubjectPanelShowing, setAddSubjectPanelShowing] = useState(false);
     const refreshFunction = useContext(RefreshContext);
 
     function stopButtonClicked() {
 	setStopPanelShowing(true);
+    }
+
+    function addSubjectClicked() {
+	setAddSubjectPanelShowing(true);
+    }
+
+    function cancelAddSubject() {
+	setAddSubjectPanelShowing(false);
     }
 
     async function reallyStop() {
@@ -46,6 +56,10 @@ export default function ViewProtocol({name, protocol, ticker}) {
 	    <ViewAllGroups name={name} variables={protocol.variables} ticker={ticker} />
 	    <ViewUnassignedSubjects name={name} variables={protocol.variables} ticker={ticker}/>
 	    <p> </p>
+	    { addSubjectPanelShowing ?
+	      <AddSubjectPanel protocol={protocol} cancel={cancelAddSubject} /> :
+	      <button onClick={addSubjectClicked}> Add Subject </button>
+	    }
 	    { stopPanelShowing ?
 	      <div style={{backgroundColor: "red", padding: "2em"}}>
 		  <h1> Really stop this protocol? Are you SURE??</h1>

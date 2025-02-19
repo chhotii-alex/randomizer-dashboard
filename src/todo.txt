@@ -1,10 +1,10 @@
-* fix example task to use current API
-* add new subject
 * deal with errors-- error boundary? useContext?
 * git repo onto github
+* new protocol: validate group names and variable names are unique
 * is there code duplication in reducer?
-* new protocol: validate group names are unique
 * get specs for a protocol
+* consolidate files
+* css looks like ass
 * format code with prettier
 * show overall means?? (all subjects submitted so far)
 * don't jump insertion point to the end when rejecting spaces
