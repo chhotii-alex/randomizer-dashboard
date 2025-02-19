@@ -5,6 +5,7 @@ import ViewVersion from './ViewVersion';
 import RefreshContext from './RefreshContext.js';
 import useFetch from './fetching.js';
 import NewProtocolPanel from './NewProtocolPanel.jsx';
+import ErrorBoundary from './ErrorBoundary.jsx';
 
 export default function RandomizerConfig() {
     const randomizerURL = useURL();
@@ -31,7 +32,7 @@ export default function RandomizerConfig() {
     }
 
     return (
-	<>
+	<ErrorBoundary>
 	    <p className="error">{error?.message}</p>
 	    <p>
          	Prospective Randomizer at: {randomizerURL}
@@ -53,6 +54,6 @@ export default function RandomizerConfig() {
  		  <button onClick={editNew}>Add New Protocol...</button>
 		}
 	    </RefreshContext.Provider>
-	</>
+	</ErrorBoundary>
     )
 }

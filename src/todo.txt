@@ -1,4 +1,3 @@
-* deal with errors-- error boundary? useContext?
 * git repo onto github
 * new protocol: validate group names and variable names are unique
 * is there code duplication in reducer?
