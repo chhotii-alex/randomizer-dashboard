@@ -1,6 +1,3 @@
-* write reducer function for new-protocol edits
-* button next to each unassigned subject to assign to group
-* assign-all button
 * fix example task to use current API
 * add new subject
 * deal with errors-- error boundary? useContext?

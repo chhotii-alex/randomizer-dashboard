@@ -5,6 +5,7 @@ import FeaturesTable from './FeaturesTable';
 import ViewAllGroups from './ViewAllGroups';
 import ViewUnassignedSubjects from './ViewUnassignedSubjects';
 import RefreshContext from './RefreshContext.js';
+import ProtocolContext from './ProtocolContext.js';
 import useFetch from './fetching.js';
 
 export default function ViewProtocol({name, protocol, ticker}) {
@@ -38,7 +39,7 @@ export default function ViewProtocol({name, protocol, ticker}) {
     }
 
     return (
-	<>
+	<ProtocolContext.Provider value={name}>
 	    <h2> Protocol: {name}</h2> 
 	    Using algorithm: <strong> {protocol.algorithm} </strong>
 	    <ViewVariables variables={protocol.variables} />
@@ -57,6 +58,6 @@ export default function ViewProtocol({name, protocol, ticker}) {
 	      </div> :
    	      <button onClick={stopButtonClicked}>Stop Protocol</button> }
 	    <hr/>
-	</>
+	</ProtocolContext.Provider>
     )
 }
