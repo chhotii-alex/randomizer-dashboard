@@ -1,11 +1,28 @@
 import { useState, useEffect, useContext } from 'react'
 import { useURL } from './URLContext';
 import ViewProtocol from './ViewProtocol';
-import ViewVersion from './ViewVersion';
 import RefreshContext from './RefreshContext.js';
 import useFetch from './fetching.js';
 import NewProtocolPanel from './NewProtocolPanel.jsx';
 import ErrorBoundary from './ErrorBoundary.jsx';
+
+function ViewVersion() {
+    const randomizerURL = useURL();
+
+    const { data, loading, error } = useFetch(`${randomizerURL}/version`, 0);
+
+    return (
+	<>
+	    <p className="error">{error?.message}</p>
+	    { loading ? <span>Loading...</span> :
+	      <p>
+		  Algorithm version: {data}
+  	      </p>
+	    }
+	</>
+    );
+}
+
 
 export default function RandomizerConfig() {
     const randomizerURL = useURL();
