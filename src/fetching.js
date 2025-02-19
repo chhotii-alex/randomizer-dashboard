@@ -11,13 +11,11 @@ export default function useFetch(url, ticker) {
         console.log(url);
         const response = await fetch(url);
         const result = await response.json();
-          setData(result);
-      }
-      catch (error) {
+        setData(result);
+      } catch (error) {
         setError(error);
-      }
-      finally {
-          setLoading(false);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -26,4 +24,3 @@ export default function useFetch(url, ticker) {
 
   return { data, loading, error };
 }
-

@@ -1,5 +1,5 @@
 :root {
-  font-family: 'Space Mono', monospace;
+  font-family: "Space Mono", monospace;
   line-height: 1;
   font-weight: 400;
 
@@ -12,7 +12,7 @@
 }
 
 div {
-    margin: 1em;
+  margin: 1em;
 }
 
 h1 {
@@ -21,7 +21,7 @@ h1 {
 }
 
 .thingname {
-    margin: 0px 1em;
+  margin: 0px 1em;
 }
 
 button {
@@ -42,27 +42,30 @@ button:focus-visible {
 }
 
 input {
-    margin: 0.5em 1em;
+  margin: 0.5em 1em;
 }
 
 table {
-    margin: 0.5em;
+  margin: 0.5em;
 }
 
-table, td, th {
-    border: 1px solid;
+table,
+td,
+th {
+  border: 1px solid;
 }
 
-td, th {
-    padding: 4px;
+td,
+th {
+  padding: 4px;
 }
 
 p {
-    margin: 0.5em 0px;
+  margin: 0.5em 0px;
 }
 
 .error {
-    color: red;
-    font-weight: bold;
-    font-size: 2em;
+  color: red;
+  font-weight: bold;
+  font-size: 2em;
 }
