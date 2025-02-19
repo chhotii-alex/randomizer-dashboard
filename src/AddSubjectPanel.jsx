@@ -75,7 +75,6 @@ export default function AddSubjectPanel({ protocol, cancel }) {
 	       <p>
 		   Subject ID:
 		   <input value={subjectID} onChange={e => setSubjectID(e.target.value.replace(/\s/g, ''))} />
-		   { JSON.stringify(features) }
 	       </p>
 	       { protocol.variables.map( (v, i) =>  <p key={v.name} >
 							{ v.name }:

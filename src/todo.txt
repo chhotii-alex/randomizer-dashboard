@@ -1,4 +1,3 @@
-* css looks like ass
 * format code with prettier
 * error after deleting a protocol because it again asks for missing one and 404
 * show overall means?? (all subjects submitted so far)

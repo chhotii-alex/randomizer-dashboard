@@ -147,8 +147,8 @@ export default function NewProtocolPanel({cancelAdding}) {
     }
     
     return (
-	<>
-	    <h3> New Protocol Parameters </h3>
+	<fieldset>
+	    <legend> New Protocol Parameters </legend>
 	    <div className="error">{errorMessage}</div>
 	    <label>Name of new protocol:</label>
 	    <input value={name} onChange={e => setName(e.target.value.replace(/\s/g, ''))} />
@@ -167,8 +167,8 @@ export default function NewProtocolPanel({cancelAdding}) {
 		   checked={specs.allowRevision}
 		   onChange={e => dispatch({type:'changed', field:'allowRevision', value:e.target.checked})} />
 	    <label htmlFor="revision">Allow Revisions</label>
-	    <div>
-	    Groups:
+	    <fieldset>
+		<legend>Groups:</legend>
 	    { specs.groupNames.map((grp, i) =>
 		<p key={i}>
 		    <input value={grp} onChange={ e => dispatch({type:'groupName', index:i, value:e.target.value}) } />
@@ -177,12 +177,13 @@ export default function NewProtocolPanel({cancelAdding}) {
 		</p>
 	    ) }
 		<button onClick={e => dispatch({type:'addGroup'})}>Add Another Group</button>
-	    </div>
+	    </fieldset>
 	    <div>
 		Variables to consider for balancing:
 		{
 		    specs.variableSpec.map((v, i) =>
-			<div key={i}>
+			<fieldset key={i}>
+			    <legend>{v.name}</legend>
 			    Name of variable:
 			    <input value={v.name}
 				   onChange={e => dispatch({type:'updateVariable', variableIndex:i, field:'name', value:e.target.value}) }/>
@@ -192,8 +193,8 @@ export default function NewProtocolPanel({cancelAdding}) {
 				<option value="categorical">categorical</option>
 			    </select>
 			    { (v.type == 'categorical') &&
-			      <p>
-				  Levels:
+			      <fieldset>
+				  <legend>Levels:</legend>
 			          { v.levels.map( (level, levelIndex) =>
 				      <span key={levelIndex} >
 					  <br/><input value={level}
@@ -203,10 +204,10 @@ export default function NewProtocolPanel({cancelAdding}) {
 				      </span>) }
 				  <br/>
 				  <button onClick={ e => dispatch({type:'addLevel', variableIndex:i}) }> Add Level </button>
-			      </p> }
+			      </fieldset> }
 			    { (specs.variableSpec.length > 1) &&
 			      <button onClick={ e => dispatch({type:'removeVariable', variableIndex:i}) }>Remove Variable</button> }
-			</div>
+			</fieldset>
 		    )
 		}
 		<button onClick={e => dispatch({type:'addVariable'})}>Add Another Variable</button>
@@ -214,6 +215,6 @@ export default function NewProtocolPanel({cancelAdding}) {
 	    { !errorMessage &&
 	      <button onClick={startProtocol}>Start</button> }
 	    <button onClick={cancelAdding}>Cancel</button>
-	</>
+	</fieldset>
     )
 }
