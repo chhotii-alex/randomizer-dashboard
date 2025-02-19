@@ -1,8 +1,8 @@
-# React + Vite
+# Prospective Randomizer Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Implemented using React and Vite
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+For configuring and monitoring the Spring Boot implementation of the Prospective Randomization algorithm.
+See [here](https://github.com/chhotii-alex/prospective-randomizer) for an overview of Prospective Randomization
+and [here](https://github.com/chhotii-alex/prospective-randomizer/tree/main/pros-rand-boot) for details on using
+the Spring Boot (Java) back-end.
